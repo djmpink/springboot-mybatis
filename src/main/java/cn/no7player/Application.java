@@ -1,6 +1,7 @@
 package cn.no7player;
 
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.log4j.Logger;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -20,6 +21,7 @@ import javax.sql.DataSource;
 @ComponentScan
 @MapperScan("cn.no7player.mapper")
 public class Application {
+    private static Logger logger = Logger.getLogger(Application.class);
 
     @Bean
     @ConfigurationProperties(prefix="spring.datasource")
@@ -45,9 +47,13 @@ public class Application {
         return new DataSourceTransactionManager(dataSource());
     }
 
+
+    /**
+     * Start
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-        System.out.println("SpringBoot Start Success");
+        logger.info("SpringBoot Start Success");
     }
 
 }
